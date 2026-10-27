@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard API Frankfurter</title>
+</head>
+<body>
+    <h1>Résultats de l'API Frankfurter</h1>
+
+    {% if erreur %}
+        <p>Erreur lors de l'appel API : {{ erreur }}</p>
+    {% elif donnees %}
+        <p>Date des taux : {{ donnees.date }}</p>
+        <p>Devise de départ : {{ donnees.base }}</p>
+
+        <h2>Taux de change</h2>
+        <ul>
+            {% for devise, taux in donnees.rates.items() %}
+                <li>EUR vers {{ devise }} : {{ taux }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Réponse complète</h2>
+        <pre>{{ donnees | tojson(indent=2) }}</pre>
+    {% endif %}
+</body>
+</html>
